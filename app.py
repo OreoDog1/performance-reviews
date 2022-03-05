@@ -22,3 +22,7 @@ def index():
     # Provide form
     if request.method == "GET":
         return render_template("index.html")
+
+    # Find reviewers
+    reviewed = reviews(request.form.get("reviewers"), request.form.get("reviewees"))[0]
+    return render_template("reviewers.html", reviewed=reviewed)

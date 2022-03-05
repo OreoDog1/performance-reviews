@@ -89,4 +89,4 @@ def test():
     print(different_team, "different team")
     print(num_reviews)
 
-test()
+# test()
