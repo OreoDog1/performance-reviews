@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+    Please input files only in CSV format. Files should contain a column entitled "Reviewer" or "Reviewee" and a column entitled "Team." Optionally, an "Experienced" column can be added with "y" and "n" as data points.
+    <form method="POST" action="/">
+        <input type="file" name="reviewers" required>
+        <input type="file" name="reviewees" required>
+        <input type="submit"/>
+    </form>
+{% endblock %}
