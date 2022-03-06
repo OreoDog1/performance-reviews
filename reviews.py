@@ -1,27 +1,29 @@
 import csv
 import random
 
-def reviews(reviewers_csv, reviewees_csv):
+def reviews(reviewers_file, reviewees_file):
     teams = {}
 
     # Compile the Reviewers data
     experienced = {}
     reviewers = []
-    with open(reviewers_csv, "r") as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            name = row["Reviewer"]
-            teams[name] = row["Team"]
-            experienced[name] = row["Experienced"]
-            reviewers.append(name)
+
+    reader = csv.DictReader(reviewers_file)
+    for row in reader:
+        name = row["Reviewer"]
+        teams[name] = row["Team"]
+        experienced[name] = row["Experienced"]
+        reviewers.append(name)
+
+    reviewers_file.close()
 
     # Compile the Reviewees data
     reviewees = []
-    with open(reviewees_csv, "r") as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            teams[row["Reviewee"]] = row["Team"]
-            reviewees.append(row["Reviewee"])
+    reader = csv.DictReader(reviewees_file)
+    for row in reader:
+        teams[row["Reviewee"]] = row["Team"]
+        reviewees.append(row["Reviewee"])
+    reviewees_file.close()
 
     # Create dictionary containing reviewer-to-reviewee matchings
     reviewed = {}
@@ -58,7 +60,9 @@ def reviews(reviewers_csv, reviewees_csv):
     return (reviewed, reviewers, reviewees, experienced, teams)
 
 def test():
-    (reviewed, reviewers, reviewees, experienced, teams) = reviews("Reviews - Reviewers.csv", "Reviews - Reviewees.csv")
+    reviewer_file = open("Reviews - Reviewers.csv", "r")
+    reviewee_file = open("Reviews - Reviewees.csv", "r")
+    (reviewed, reviewers, reviewees, experienced, teams) = reviews(reviewer_file, reviewee_file)
 
     two_reviewers = True
     one_experienced = True
