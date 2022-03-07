@@ -36,14 +36,6 @@ def index():
     reviewers = io.StringIO(reviewers_file.stream.read().decode("UTF8"), newline=None)
     reviewees = io.StringIO(reviewees_file.stream.read().decode("UTF8"), newline=None)
 
-    # if not reviewers or not reviewees:
-    #     flash("Must input both files")
-    #     return redirect("/")
-
-    # if not allowed_file(reviewers.filename) or not allowed_file(reviewees.filename):
-    #     flash("Unsupported file type")
-    #     return redirect("/")
-
     matchings = reviews(reviewers, reviewees)["matchings"]
     reviewers_file.close()
     reviewees_file.close()
