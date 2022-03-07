@@ -1,0 +1,17 @@
+.centered
+{
+    text-align:center;
+}
+
+p, input
+{
+    font-family:Monaco, Monospace;
+    text-align:center;
+}
+
+.submit
+{
+    height:50px;
+    width:200px;
+    font-size:x-large;
+}
