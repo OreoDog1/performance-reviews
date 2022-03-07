@@ -7,7 +7,6 @@ def reviews(reviewers_file, reviewees_file):
     # Compile the Reviewers data
     experienced = {}
     reviewers = []
-
     reader = csv.DictReader(reviewers_file)
     for row in reader:
         name = row["Reviewer"]
@@ -15,15 +14,12 @@ def reviews(reviewers_file, reviewees_file):
         experienced[name] = row["Experienced"]
         reviewers.append(name)
 
-    reviewers_file.close()
-
     # Compile the Reviewees data
     reviewees = []
     reader = csv.DictReader(reviewees_file)
     for row in reader:
         teams[row["Reviewee"]] = row["Team"]
         reviewees.append(row["Reviewee"])
-    reviewees_file.close()
 
     # Create dictionary containing reviewer-to-reviewee matchings
     matchings = {}
@@ -96,4 +92,4 @@ def test():
     print(different_team, "different team")
     print(num_reviews)
 
-test()
+# test()

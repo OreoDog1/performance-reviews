@@ -1,9 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
-    Please input files only in CSV format. Files should contain a column entitled "Reviewer" or "Reviewee" and a column entitled "Team." Optionally, an "Experienced" column can be added with "y" and "n" as data points.
-    <form method="POST" action="/">
-        <input type="file" name="reviewers" required>
-        <input type="file" name="reviewees" required>
-        <input type="submit"/>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <div class="centered"></div>
+            <p>This program will assign two reviewers for each reviewee ensuring that the reviewers are from different teams than the reviewee. Input files only in CSV format.</p>
+            <br>
+            <p>The <b>Reviewers</b> file should contain three columns: "Reviewer", "Team", and "Experienced". The data points for the "Experienced" column are "y" and "n".</p>
+            <p><input type="file" name="reviewers"></p>
+            <br><br><br>
+            <p>The <b>Reviewees</b> file should contain two columns: "Reviewee" and "Team".</p>
+            <p><input type="file" name="reviewees" required></p>
+            <br><br><br>
+            <p><input type="submit" class="submit"></p>
+        </div>
     </form>
 {% endblock %}

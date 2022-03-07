@@ -1,17 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
-    <table>
-        <tr>
-            <th>Reviewee</th>
-            <th>Reviewer 1</th>
-            <th>Reviewer 2</th>
-        </tr>
-        {% for reviewee in reviewees %}
+    <div>
+        <table class="table table-striped">
             <tr>
-                <td>{{ reviewee }}</td>
-                <td>{{ reviewed.reviewee[0] }}</td>
-                <td>{{ reviewed.reviewee[1] }}</td>
+                <th>Reviewee</th>
+                <th>Reviewer 1</th>
+                <th>Reviewer 2</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for reviewee in reviewees %}
+                <tr>
+                    <td>{{ reviewee }}</td>
+                    <td>{{ (matchings[reviewee])[0] }}</td>
+                    <td>{{ (matchings[reviewee])[1] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
