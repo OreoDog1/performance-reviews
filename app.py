@@ -20,6 +20,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+
 # For csv uploads
 app.config['UPLOAD_FOLDER'] = "/uploads"
 ALLOWED_EXTENSIONS = {"csv"}
