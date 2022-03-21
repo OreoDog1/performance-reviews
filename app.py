@@ -1,11 +1,10 @@
 import csv
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 import io
 import os
 import random
 from reviews import reviews
 from tempfile import mkdtemp
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -37,7 +36,12 @@ def index():
     reviewers = io.StringIO(reviewers_file.stream.read().decode("UTF8"), newline=None)
     reviewees = io.StringIO(reviewees_file.stream.read().decode("UTF8"), newline=None)
 
-    matchings = reviews(reviewers, reviewees)["matchings"]
+    output = reviews(reviewers, reviewees)
+    if isinstance(output, str):
+        flash(output)
+        return redirect("/")
+
+    matchings = output["matchings"]
     reviewers_file.close()
     reviewees_file.close()
     return render_template("reviewers.html", matchings=matchings, reviewees=matchings.keys())
