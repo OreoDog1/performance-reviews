@@ -2,7 +2,7 @@ import csv
 import random
 import pandas as pd
 
-def reviews(reviewers_file, reviewees_file):
+def reviews(reviewers_file, reviewees_file, num_reviewers):
     # Compile the Reviewers data
     try:
         ers_df = pd.read_csv(reviewers_file, index_col="Reviewer")
@@ -45,7 +45,7 @@ def reviews(reviewers_file, reviewees_file):
                 # Check if the reviewee is valid
                 if ees_df.loc[reviewee, "Team"] != ers_df.loc[reviewer, "Team"] and len(chosen) < 2 and reviewer not in chosen:
                     # Make sure nobody gets all inexperienced reviewers
-                    if len(chosen) == 1 and ers_df.loc[reviewer, "Experienced"] == "n" and ers_df.loc[chosen[0], "Experienced"] == "n":
+                    if len(chosen) == num_reviewers - 1 and ers_df.loc[reviewer, "Experienced"] == "n" and ers_df.loc[chosen[0], "Experienced"] == "n":
                         continue
                     matchings[reviewee].append(reviewer)
                     break
@@ -65,7 +65,7 @@ def reviews(reviewers_file, reviewees_file):
 def test():
     reviewer_file = open("Reviews_-_Reviewers.csv", "r")
     reviewee_file = open("Reviews_-_Reviewees.csv", "r")
-    info = reviews(reviewer_file, reviewee_file)
+    info = reviews(reviewer_file, reviewee_file, 2)
     matchings = info["matchings"]
     ers_df = info["ers_df"]
     ees_df = info["ees_df"]

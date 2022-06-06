@@ -6,14 +6,14 @@
         <link href="/static/styles.css" rel="stylesheet">
         <title>Performance Reviews</title>
     </head>
+    {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-primary border text-center" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+    {% endif %}
     <main>
-        {% if get_flashed_messages() %}
-            <header>
-                <div class="alert alert-primary border text-center" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
-                </div>
-            </header>
-        {% endif %}
         {% block body %}{% endblock %}
     </main>
 </html>

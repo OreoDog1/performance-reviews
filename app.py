@@ -36,7 +36,7 @@ def index():
     reviewers = io.StringIO(reviewers_file.stream.read().decode("UTF8"), newline=None)
     reviewees = io.StringIO(reviewees_file.stream.read().decode("UTF8"), newline=None)
 
-    output = reviews(reviewers, reviewees)
+    output = reviews(reviewers, reviewees, 2)
     if isinstance(output, str):
         flash(output)
         return redirect("/")
