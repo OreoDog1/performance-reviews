@@ -2,12 +2,16 @@
 {% block body %}
     <form method="POST" action="/" enctype="multipart/form-data">
         <div class="centered"></div>
-            <p>This program will assign two reviewers for each reviewee ensuring that the reviewers are from different teams than the reviewee. Input files only in CSV format.</p>
+            <p>1. Make a copy of <a href=https://docs.google.com/spreadsheets/d/1fSm4Mh4J2ZI0HeikjFTI0YYBhsIQXeiMHweL_IW6L1c/edit?usp=sharing>this document</a> and insert the name and team of each reviewer and reviewee.</p>
+            <p>2. Optionally, you may include data under the "Experienced" column in the "Reviewers" sheet. This allows you to ensure that every reviewee will have an experienced reviewer. If you do this, the requested data points are "y" and "n".</p>
+            <p>3. Now download both sheets by clicking File -> Download -> Comma Separated Values (.csv). Make sure to download both the "Reviewers" and "Reviewees" sheets individually by selecting one at a time and repeating the process for each.</p>
+            <img src="static/DownloadInstructions.png" alt="Screenshot of Downloading" width="500" class="centered-image">
+            <p>4. Finally, input the files and the number of reviewers you would like to review each reviewee into the following form. Click "Submit" and you will be able to view and download the matchings.</p>
             <br>
-            <p>The <b>Reviewers</b> file should contain three columns: "Reviewer", "Team", and "Experienced". The data points for the "Experienced" column are "y" and "n".</p>
+            <p>Reviewers File</p>
             <p><input type="file" name="reviewers"></p>
             <br><br><br>
-            <p>The <b>Reviewees</b> file should contain two columns: "Reviewee" and "Team".</p>
+            <p>Reviewees File</p>
             <p><input type="file" name="reviewees" required></p>
             <br><br><br>
             <p>Number of reviewers per reviewee (1-3 recommended)</p>
