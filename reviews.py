@@ -3,6 +3,13 @@ import random
 import pandas as pd
 
 def reviews(reviewers_file, reviewees_file, num_reviewers):
+    print(num_reviewers)
+    try:
+        if num_reviewers <= 0:
+            return "Invalid number of reviewers"
+    except:
+        return "Invalid reviewers"
+
     # Compile the Reviewers data
     try:
         ers_df = pd.read_csv(reviewers_file, index_col="Reviewer")
@@ -43,49 +50,61 @@ def reviews(reviewers_file, reviewees_file, num_reviewers):
                 chosen = matchings[reviewee]
 
                 # Check if the reviewee is valid
-                if ees_df.loc[reviewee, "Team"] != ers_df.loc[reviewer, "Team"] and len(chosen) < 2 and reviewer not in chosen:
+                if ees_df.loc[reviewee, "Team"] != ers_df.loc[reviewer, "Team"] and len(chosen) < num_reviewers and reviewer not in chosen:
                     # Make sure nobody gets all inexperienced reviewers
-                    if len(chosen) == num_reviewers - 1 and ers_df.loc[reviewer, "Experienced"] == "n" and ers_df.loc[chosen[0], "Experienced"] == "n":
-                        continue
+                    if num_reviewers > 1 and len(chosen) == num_reviewers - 1 and ers_df.loc[reviewer, "Experienced"] == "n":
+                        no_experience = True
+                        for assigned in chosen:
+                            if ers_df.loc[assigned, "Experienced"] == "y":
+                                no_experience = False
+                                break
+                        if no_experience:
+                            continue
                     matchings[reviewee].append(reviewer)
                     break
 
-        # Check if everyone has been reviewed twice
+        # Check if everyone has been reviewed the correct number of times
         all_reviewed = True
         for assigned in matchings.values():
-            if len(assigned) < 2:
+            if len(assigned) < num_reviewers:
                 all_reviewed = False
                 break
 
         if all_reviewed:
             break
 
+    # Return dictionary of information
     return {"matchings":matchings, "ers_df":ers_df, "ees_df":ees_df}
 
-def test():
+def test(num_reviewers):
     reviewer_file = open("Reviews_-_Reviewers.csv", "r")
     reviewee_file = open("Reviews_-_Reviewees.csv", "r")
-    info = reviews(reviewer_file, reviewee_file, 2)
+    info = reviews(reviewer_file, reviewee_file, num_reviewers)
     matchings = info["matchings"]
     ers_df = info["ers_df"]
     ees_df = info["ees_df"]
 
-    two_reviewers = True
+    correct_reviewers = True
     one_experienced = True
     different_team = True
 
     for reviewee in ees_df.index.values:
         assigned = matchings[reviewee]
-        if len(assigned) != 2:
-            two_reviewers = False
+        if len(assigned) != num_reviewers:
+            correct_reviewers = False
             break
 
-        if ers_df.loc[assigned[0], "Experienced"] == "n" and ers_df.loc[assigned[1], "Experienced"] == "n":
+        no_experience = True
+        for reviewer in assigned:
+            if ers_df.loc[reviewer, "Experienced"] == "y":
+                no_experience = False
+                break
+        if no_experience:
             one_experienced = False
 
-        team = ees_df.loc[reviewee, "Team"]
-        if team == ers_df.loc[assigned[0], "Team"] or team == ers_df.loc[assigned[1], "Team"]:
-            different_team = False
+        for reviewer in assigned:
+            if ees_df.loc[reviewee, "Team"] == ers_df.loc[reviewer, "Team"]:
+                different_team = False
 
     num_reviews = {}
     for reviewer in ers_df.index.values:
@@ -95,9 +114,11 @@ def test():
                 count += 1
         num_reviews[reviewer] = count
 
-    print(two_reviewers, "two reviewers")
-    print(one_experienced, "one experienced")
+    print(correct_reviewers, "correct number of reviewers")
+    if num_reviewers != 1:
+        print(one_experienced, "one experienced")
     print(different_team, "different team")
     print(num_reviews)
 
-test()
+for n in range(1, 4):
+    test(n)

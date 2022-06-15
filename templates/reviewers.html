@@ -4,14 +4,16 @@
         <table class="table table-striped">
             <tr>
                 <th>Reviewee</th>
-                <th>Reviewer 1</th>
-                <th>Reviewer 2</th>
+                {% for n in range(1, num_reviewers + 1)%}
+                    <th>Reviewer {{ n }}</th>
+                {% endfor %}
             </tr>
             {% for reviewee in reviewees %}
                 <tr>
                     <td>{{ reviewee }}</td>
-                    <td>{{ (matchings[reviewee])[0] }}</td>
-                    <td>{{ (matchings[reviewee])[1] }}</td>
+                    {% for n in range (num_reviewers) %}
+                        <td>{{ (matchings[reviewee])[n] }}</td>
+                    {% endfor %}
                 </tr>
             {% endfor %}
         </table>
