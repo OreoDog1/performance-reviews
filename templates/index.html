@@ -1,23 +1,34 @@
 {% extends "layout.html" %}
 {% block body %}
-    <form method="POST" action="/" enctype="multipart/form-data">
-        <div class="centered"></div>
-            <p>1. Make a copy of <a href=https://docs.google.com/spreadsheets/d/1fSm4Mh4J2ZI0HeikjFTI0YYBhsIQXeiMHweL_IW6L1c/edit?usp=sharing>this document</a> and insert the name and team of each reviewer and reviewee.</p>
-            <p>2. Optionally, you may include data under the "Experienced" column in the "Reviewers" sheet. This allows you to ensure that every reviewee will have an experienced reviewer. If you do this, the requested data points are "y" and "n".</p>
-            <p>3. Now download both sheets by clicking File -> Download -> Comma Separated Values (.csv). Make sure to download both the "Reviewers" and "Reviewees" sheets individually by selecting one at a time and repeating the process for each.</p>
-            <img src="static/DownloadInstructions.png" alt="Screenshot of Downloading" width="500" class="centered-image">
-            <p>4. Finally, input the files and the number of reviewers you would like to review each reviewee into the following form. Click "Submit" and you will be able to view and download the matchings.</p>
-            <br>
-            <p>Reviewers File</p>
-            <p><input type="file" name="reviewers"></p>
-            <br><br><br>
-            <p>Reviewees File</p>
-            <p><input type="file" name="reviewees" required></p>
-            <br><br><br>
-            <p>Number of reviewers per reviewee (1-3 recommended)</p>
-            <p><input type="number" name="num_reviewers"></p>
-            <br><br><br>
-            <p><input type="submit" class="submit"></p>
-        </div>
-    </form>
+    <div class="main">
+        <h1><img src="static/Google_2015_logo.svg.png" alt="Google" id="GoogleLogo"> Performance Reviews</h1><br>
+        <form method="POST" action="/" enctype="multipart/form-data">
+            <div>
+                <p>1. Make a copy of <a href=https://docs.google.com/spreadsheets/d/1fSm4Mh4J2ZI0HeikjFTI0YYBhsIQXeiMHweL_IW6L1c/edit?usp=sharing target="_blank">this document</a> by clicking File -> Make a Copy and give the spreadsheet any name you would like.</p>
+                <img src="static/CopyingInstructions.png" alt="Screenshot of Copying Spreadsheet" height="450">
+                <p>2. Fill in the data by inserting the name and team of each reviewer and reviewee into their respective sheets.</p>
+                <img src="static/Reviewees.png" alt="Screenshot of Reviewees Spreadsheet" height="400">
+                <p>3. Optionally, you may include data under the "Experienced" column in the "Reviewers" sheet. This allows you to ensure that every reviewee will have an experienced reviewer. If you do this, the requested data points are "y" and "n". Otherwise, please delete this column to avoid confusion.</p>
+                <img src="static/Reviewers.png" alt="Screenshot of Reviewers Spreadsheet" height="400">
+                <p>4. Now download both sheets by clicking File -> Download -> Comma Separated Values (.csv). Make sure to download both the "Reviewers" and "Reviewees" sheets individually by selecting one at a time and repeating the process for each.</p>
+                <img src="static/DownloadInstructions.png" alt="Screenshot of Downloading" height="450">
+                <p>5. Finally, input the downloaded files as well as the number of reviewers you would like to review each reviewee into the following form. Click "Submit" and you will be able to view the assignments and download them as a csv.</p>
+                <br>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Reviewers File</label>
+                    <input class="form-control" type="file" id="formFile" name="reviewers" required>
+                </div>
+                <br><br><br>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Reviewers File</label>
+                    <input class="form-control" type="file" id="formFile" name="reviewees" required>
+                </div>
+                <br><br><br>
+                Number of reviewers per reviewee (1-3 recommended)
+                <input type="number" name="num_reviewers">
+                <br><br><br>
+                <input type="submit" class="submit">
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -1,12 +1,42 @@
+.main
+{
+    padding: 30px;
+    font-size: 35;
+}
+
+.form-control
+{
+    width: 235px;
+}
+
+.padded-sides
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h1
+{
+    font-size:80;
+    text-align:center;
+}
+
+img
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .centered
 {
     text-align:center;
 }
 
-p, input
-{
-    font-family:Monaco, Monospace;
-    text-align:center;
+.centered-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
 }
 
 .submit
@@ -14,4 +44,9 @@ p, input
     height:50px;
     width:200px;
     font-size:x-large;
+}
+
+#GoogleLogo
+{
+    height:80px;
 }
