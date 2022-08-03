@@ -100,11 +100,13 @@ def test(num_reviewers, experience=False):
     different_team = True
 
     for reviewee in ees_df.index.values:
+        # Check that each reviewee has the correct number of reviewers
         assigned = matchings[reviewee]
         if len(assigned) != num_reviewers:
             correct_reviewers = False
             break
 
+        # Check that all reviewees have an experienced reviewer
         if experience:
             no_experience = True
             for reviewer in assigned:
@@ -114,10 +116,12 @@ def test(num_reviewers, experience=False):
             if no_experience:
                 one_experienced = False
 
+        # Check that each reviewer is on a different team than the reviewee
         for reviewer in assigned:
             if ees_df.loc[reviewee, "Team"] == ers_df.loc[reviewer, "Team"]:
                 different_team = False
 
+    # Create a dictionary containing the number of reviewees each reviewer reviews
     num_reviews = {}
     for reviewer in ers_df.index.values:
         count = 0

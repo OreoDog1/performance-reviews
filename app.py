@@ -43,6 +43,7 @@ def index():
         flash("Invalid number of reviewers")
         return redirect("/")
 
+    # Provide error messages
     output = reviews(reviewers, reviewees, num_reviewers)
     if isinstance(output, str):
         flash(output)
@@ -51,5 +52,21 @@ def index():
     matchings = output["matchings"]
     reviewers_file.close()
     reviewees_file.close()
-    return render_template("reviewers.html", matchings=matchings, reviewees=matchings.keys(), num_reviewers=num_reviewers)
+
+    # Create csv data
+    csv_data = []
+
+    # Create headers
+    row = ["Reviewee"]
+    for i in range(1, num_reviewers + 1):
+        row.append("Reviewer " + str(i))
+    csv_data.append(row)
+
+    for reviewee in matchings:
+        row = [reviewee]
+        for reviewer in matchings[reviewee]:
+            row.append(reviewer)
+        csv_data.append(row)
+
+    return render_template("reviewers.html", csv_data=csv_data, matchings=matchings, reviewees=matchings.keys(), num_reviewers=num_reviewers)
 
