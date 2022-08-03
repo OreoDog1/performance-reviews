@@ -1,12 +1,48 @@
 {% extends "layout.html" %}
+{% block script %}
+    <script>
+        //create CSV file data in an array
+        var matchings = {{ matchings }};
+
+        //create a user-defined function to download CSV file
+        function download_csv_file() {
+
+            //define the heading for each row of the data
+            var csv = 'Reviewee';
+            for (let i = 1; i <= {{ num_reviewers }}; i++) {
+                csv += ', Reviewee ' + i.toString();
+            }
+
+            //merge the data with CSV
+            csvFileData.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+            });
+
+            //display the created CSV data on the web browser
+            document.write(csv);
+
+
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+
+            //provide the name for the CSV file to be downloaded
+            hiddenElement.download = 'Reviewer Matchings.csv';
+            hiddenElement.click();
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="padded-sides">
         <table class="table table-striped">
             <tr>
                 <th>Reviewee</th>
-                {% for n in range(1, num_reviewers + 1)%}
+                {% for n in range(1, num_reviewers + 1) %}
                     <th>Reviewer {{ n }}</th>
                 {% endfor %}
+                <th width=100px><button onclick="download_csv_file()" class="btn btn-primary">Download</button></th>
             </tr>
             {% for reviewee in reviewees %}
                 <tr>
@@ -14,6 +50,7 @@
                     {% for n in range (num_reviewers) %}
                         <td>{{ (matchings[reviewee])[n] }}</td>
                     {% endfor %}
+                    <td></td>
                 </tr>
             {% endfor %}
         </table>

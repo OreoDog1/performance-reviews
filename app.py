@@ -1,5 +1,5 @@
 import csv
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, redirect, flash
 import io
 import os
 import random
@@ -11,6 +11,7 @@ app = Flask(__name__)
 # Following two blocks from C$50 Finance
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['SESSION_TYPE'] = 'filesystem'
+app.secret_key = 's3cr3t_p@ssw0rd'
 
 # Ensure responses aren't cached
 @app.after_request
@@ -36,7 +37,12 @@ def index():
         flash("Invalid file(s)")
         return redirect("/")
 
-    num_reviewers = int(request.form.get("num_reviewers"))
+    try:
+        num_reviewers = int(request.form.get("num_reviewers"))
+    except:
+        flash("Invalid number of reviewers")
+        return redirect("/")
+
     output = reviews(reviewers, reviewees, num_reviewers)
     if isinstance(output, str):
         flash(output)
