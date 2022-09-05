@@ -2,6 +2,7 @@ import csv
 import random
 import pandas as pd
 
+
 def reviews(reviewers_file, reviewees_file, num_reviewers):
     try:
         if num_reviewers <= 0:
@@ -78,15 +79,16 @@ def reviews(reviewers_file, reviewees_file, num_reviewers):
             break
 
     # Return dictionary of information
-    return {"matchings":matchings, "ers_df":ers_df, "ees_df":ees_df}
+    return {"matchings": matchings, "ers_df": ers_df, "ees_df": ees_df}
+
 
 def test(num_reviewers, experience=False):
     # Open files
     if experience:
-        reviewer_file = open("Reviews_-_Reviewers.csv", "r")
+        reviewer_file = open("test/Reviews_-_Reviewers.csv", "r")
     else:
-        reviewer_file = open("NoExperience.csv")
-    reviewee_file = open("Reviews_-_Reviewees.csv", "r")
+        reviewer_file = open("test/NoExperience.csv")
+    reviewee_file = open("test/Reviews_-_Reviewees.csv", "r")
 
     # Execute function and store data
     info = reviews(reviewer_file, reviewee_file, num_reviewers)
@@ -136,6 +138,7 @@ def test(num_reviewers, experience=False):
         print(one_experienced, "one experienced")
     print(different_team, "different team")
     print(num_reviews)
+
 
 for n in range(1, 4):
     test(n)

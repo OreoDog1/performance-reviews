@@ -13,6 +13,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['SESSION_TYPE'] = 'filesystem'
 app.secret_key = 's3cr3t_p@ssw0rd'
 
+
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
@@ -50,6 +51,8 @@ def index():
         return redirect("/")
 
     matchings = output["matchings"]
+
+    # Close files
     reviewers_file.close()
     reviewees_file.close()
 
@@ -62,6 +65,7 @@ def index():
         row.append("Reviewer " + str(i))
     csv_data.append(row)
 
+    # Add matchings
     for reviewee in matchings:
         row = [reviewee]
         for reviewer in matchings[reviewee]:
