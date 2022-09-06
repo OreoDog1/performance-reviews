@@ -41,11 +41,11 @@ This is where the bulk of the project is. It contains the algorithm that takes t
 
 #### layout.html
 
-This layout file allows for the use of Bootstrap and my style sheet and allows error-handling in all of the HTML files. While it is a little strange to have a layout file with just two other HTML files, I think it helps the main files look cleaner and more readable.
+This layout file allows for the use of Bootstrap and my stylesheet and allows error-handling in all of the HTML files. While it is a little strange to have a layout file with just two other HTML files, I think it helps the main files look cleaner and more readable.
 
 #### index.html
 
-This is the homepage of the application which contains the instructions to create the csv files as well as the input fields.
+This is the homepage of the application which contains the instructions to create the csv files as well as the input form.
 
 #### reviewers.html
 
