@@ -11,7 +11,7 @@ The app provides step-by-step instructions to create two csv files using Google 
 
 #### Algorithm
 
-The app will provide pairings as follows.
+The app will provide assignments as follows.
 
 1. No reviewer will review someone from their own team.
 2. Each reviewer will have to review roughly the same number of people.
